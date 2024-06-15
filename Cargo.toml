@@ -38,10 +38,9 @@ time = "0.3.36"
 # "MediaQueryList",
 # ] }
 gloo = { version = "0.11.0", features = ["events", "storage"] }
-leptos-use = "0.10.10"
+leptos-use = { version = "0.10.10" }
 
 [features]
-hydrate = ["leptos/hydrate", "leptos_meta/hydrate", "leptos_router/hydrate"]
 ssr = [
     "dep:axum",
     "dep:tokio",
@@ -52,8 +51,10 @@ ssr = [
     "leptos_meta/ssr",
     "leptos_router/ssr",
     "leptos-use/ssr",
+    "leptos-use/axum",
     "dep:tracing",
 ]
+hydrate = ["leptos/hydrate", "leptos_meta/hydrate", "leptos_router/hydrate"]
 
 [package.metadata.cargo-all-features]
 denylist = ["axum", "tokio", "tower", "tower-http", "leptos_axum"]
@@ -113,3 +114,12 @@ lib-features = ["hydrate"]
 #
 # Optional. Defaults to false.
 lib-default-features = false
+
+lib-profile-release = "wasm-release"
+
+
+[profile.wasm-release]
+inherits = "release"
+opt-level = 'z'
+lto = true
+codegen-units = 1
