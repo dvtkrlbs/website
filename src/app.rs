@@ -56,6 +56,7 @@ pub fn App() -> impl IntoView {
             <Routes>
                 <Route path="/" view=move || view! { <BaseLayout/> }>
                     <Route path="" view=move || view! { <Home/> }/>
+                    <Route path="contact" view=move || view! { <Markdown file_name="contact"/> }/>
                 </Route>
             </Routes>
         </Router>
