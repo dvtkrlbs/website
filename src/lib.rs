@@ -1,4 +1,7 @@
 pub mod app;
+pub mod components;
+pub mod pages;
+pub mod site_config;
 
 #[cfg(feature = "ssr")]
 pub mod fallback;

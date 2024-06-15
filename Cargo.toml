@@ -13,10 +13,13 @@ console_log = "1"
 leptos = { version = "0.6.12" }
 leptos_meta = { version = "0.6.12" }
 leptos_axum = { version = "0.6.12", optional = true }
-leptos_router = { version = "0.6.12"}
+leptos_router = { version = "0.6.12" }
 log = "0.4.17"
 simple_logger = "5"
-tokio = { version = "1", features = ["rt-multi-thread", "macros"], optional = true }
+tokio = { version = "1", features = [
+    "rt-multi-thread",
+    "macros",
+], optional = true }
 tower = { version = "0.4", optional = true }
 tower-http = { version = "0.5", features = ["fs"], optional = true }
 wasm-bindgen = "0.2"
@@ -24,6 +27,16 @@ thiserror = "1.0"
 tracing = { version = "0.1", optional = true }
 http = "1.0"
 time = "0.3.36"
+# web-sys = { version = "0.3.68", features = [
+# "Storage",
+# "Window",
+# "DomTokenList",
+# "Element",
+# "EventTarget",
+# "MediaQueryList",
+# ] }
+gloo = { version = "0.11.0", features = ["events", "storage"] }
+leptos-use = "0.10.10"
 
 [features]
 hydrate = ["leptos/hydrate", "leptos_meta/hydrate", "leptos_router/hydrate"]
@@ -36,6 +49,7 @@ ssr = [
     "leptos/ssr",
     "leptos_meta/ssr",
     "leptos_router/ssr",
+    "leptos-use/ssr",
     "dep:tracing",
 ]
 
