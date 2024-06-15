@@ -10,9 +10,11 @@ crate-type = ["cdylib", "rlib"]
 axum = { version = "0.7", optional = true }
 console_error_panic_hook = "0.1"
 console_log = "1"
-leptos = { version = "0.6.12" }
+leptos = { version = "0.6.12", features = ["nightly", "experimental-islands"] }
 leptos_meta = { version = "0.6.12" }
-leptos_axum = { version = "0.6.12", optional = true }
+leptos_axum = { version = "0.6.12", optional = true, features = [
+    "experimental-islands",
+] }
 leptos_router = { version = "0.6.12" }
 log = "0.4.17"
 simple_logger = "5"

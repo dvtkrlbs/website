@@ -1,30 +1,13 @@
 use leptos::*;
 use leptos_meta::{Body, Html};
 use leptos_router::{use_location, Outlet, A};
-use leptos_use::{
-    storage::{use_local_storage_with_options, UseStorageOptions},
-    use_preferred_dark,
-    utils::FromToStringCodec,
-};
+use leptos_use::{use_cookie, use_preferred_dark, utils::FromToStringCodec};
 
 use crate::site_config::{Link, SiteConfig};
 
 #[component]
 pub fn BaseLayout() -> impl IntoView {
-    let options = UseStorageOptions::default().initial_value("");
-    let (theme, _, _) =
-        use_local_storage_with_options::<String, FromToStringCodec>("theme", options);
-
-    let html_classes = move || {
-        if theme.get() == "dark" {
-            "dark".to_string()
-        } else {
-            "".to_string()
-        }
-    };
-
     view! {
-        <Html lang="en" class=move || html_classes()/>
         <Body class="bg-main text-main"/>
         <div class="flex flex-col min-h-screen md:px-9">
             <Nav/>
@@ -217,31 +200,44 @@ fn Footer() -> impl IntoView {
     }
 }
 
-#[component]
+#[island]
 fn ThemeToggle() -> impl IntoView {
     let is_dark_preferred = use_preferred_dark();
-    let options = UseStorageOptions::default().initial_value("");
-    let (theme, set_theme, _) =
-        use_local_storage_with_options::<String, FromToStringCodec>("theme", options);
+    // let (theme, set_theme, _) =
+    // use_local_storage_with_options::<String, FromToStringCodec>("theme", options);
+
+    let (theme, set_theme) = use_cookie::<String, FromToStringCodec>("theme");
 
     create_effect(move |_| {
-        if theme.get_untracked() == "" {
+        if theme.get_untracked().is_none() {
             if is_dark_preferred.get_untracked() {
-                set_theme.set("dark".to_string());
+                set_theme.set(Some("dark".to_string()));
             } else {
-                set_theme.set("light".to_string());
+                set_theme.set(Some("light".to_string()));
             }
         }
     });
+
+    let html_classes = move || {
+        if theme.get() == Some("dark".to_string()) {
+            "dark".to_string()
+        } else {
+            "".to_string()
+        }
+    };
+
     view! {
+        <Html lang="en" class=move || html_classes()/>
         <button
             class="w-8 h-8 -mr-2 flex items-center justify-center"
             aria-label="Change color scheme"
             on:click=move |_| {
-                if theme.get() == "dark" {
-                    set_theme.set("light".to_string());
-                } else {
-                    set_theme.set("dark".to_string());
+                if let Some(theme) = theme() {
+                    if theme == "dark" {
+                        set_theme.set(Some("light".to_string()));
+                    } else {
+                        set_theme.set(Some("dark".to_string()));
+                    }
                 }
             }
         >
