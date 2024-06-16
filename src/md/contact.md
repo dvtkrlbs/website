@@ -1,6 +1,7 @@
 ---
 title: Contact Me
 ---
+
 # Contact Me
 
-Email me at dvt(dot)tnhn(dot)krlbs(at)icloud(dot).com
+Email me at [dvt.tnhn.krlbs@icloud.com](mailto:dvt.tnhn.krlbs@icloud.com)

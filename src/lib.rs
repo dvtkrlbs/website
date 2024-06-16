@@ -1,6 +1,20 @@
 pub mod app;
 pub mod components;
+#[cfg(feature = "ssr")]
 pub mod markdown;
+#[cfg(not(feature = "ssr"))]
+pub mod markdown {
+    use leptos::*;
+
+    #[component]
+    pub fn Markdown(file_name: String) -> impl IntoView {
+        view! {
+            <div>
+                <p>Markdown is not supported in this build.</p>
+            </div>
+        }
+    }
+}
 pub mod pages;
 pub mod site_config;
 

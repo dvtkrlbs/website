@@ -2,7 +2,9 @@ use crate::{
     components::BaseLayout,
     pages::Home,
     site_config::{Link, SiteConfig},
+    markdown::Markdown,
 };
+
 use leptos::*;
 use leptos_meta::*;
 use leptos_router::*;
@@ -50,13 +52,13 @@ pub fn App() -> impl IntoView {
     provide_context(config);
 
     view! {
-        <Stylesheet id="leptos" href="/pkg/leptos_tailwind.css"/>
+        <Stylesheet id="leptos" href="/pkg/website.css"/>
         <Link rel="shortcut icon" type_="image/ico" href="/favicon.ico"/>
         <Router>
             <Routes>
                 <Route path="/" view=move || view! { <BaseLayout/> }>
                     <Route path="" view=move || view! { <Home/> }/>
-                    <Route path="contact" view=move || view! { <Markdown file_name="contact"/> }/>
+                    <Route path="contact" view=move || view! { <Markdown file_name="contact".to_string() /> }/>
                 </Route>
             </Routes>
         </Router>

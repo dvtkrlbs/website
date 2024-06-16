@@ -8,7 +8,8 @@ use crate::site_config::{Link, SiteConfig};
 #[component]
 pub fn BaseLayout() -> impl IntoView {
     view! {
-        <Body class="bg-main text-main"/>
+        // <Body class="bg-main  text-main"/>
+        <Body class="dark:bg-stone-900 dark:text-stone-100 text-stone-900 bg-stone-100" />
         <div class="flex flex-col min-h-screen md:px-9">
             <Nav/>
             <Header/>
@@ -69,7 +70,7 @@ fn NavLink(href: String, children: Children) -> impl IntoView {
     let href_clone = href.clone();
     let is_active = move || location.pathname.get() == href_clone;
 
-    let base_class_list = "text-xl font-serif text-main hover:underline hover:underline-offset-2 hover:decoration-1 md:text-base";
+    let base_class_list = "text-xl font-serif hover:underline hover:underline-offset-2 hover:decoration-1 md:text-base";
     let class_list = if is_active() {
         format!("underline underline-offset-2 decoration-1 {base_class_list}")
     } else {
